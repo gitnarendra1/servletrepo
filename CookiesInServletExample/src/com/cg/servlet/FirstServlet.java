@@ -17,24 +17,26 @@ public class FirstServlet extends HttpServlet {
             HttpServletResponse response) throws ServletException, IOException {
          
     	
+        Cookie[] cookies = null;
         
-        Cookie firstName = new Cookie("first_name", request.getParameter("first_name"));
-        Cookie lastName = new Cookie("last_name", request.getParameter("last_name"));
+        Cookie firstName = new Cookie("firstName", request.getParameter("firstName"));
+        Cookie lastName = new Cookie("lastName", request.getParameter("lastName"));
 
-        firstName.setMaxAge(60*60*24);
-        lastName.setMaxAge(60*60*24);
+        firstName.setMaxAge(6000);
+        lastName.setMaxAge(6000);
 
         response.addCookie( firstName );
         response.addCookie( lastName );
             
         PrintWriter writer = response.getWriter();
-        Cookie[] cookies = request.getCookies();
+         cookies = request.getCookies();
 
         String firstName1 = null;
         String lastName1 = null;
         for(Cookie cookie : cookies){
-            if("firstName".equals(cookie.getName())){
-            	firstName1 = cookie.getValue();
+        	
+            if(cookie.getName().equals("firstName")){
+            		firstName1 = cookie.getValue();
             }else if("lastName".equals(cookie.getName())){
             	lastName1 = cookie.getValue();}
         }
